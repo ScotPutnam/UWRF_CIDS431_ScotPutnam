@@ -10,6 +10,7 @@ import software.amazon.awscdk.services.lambda.Runtime;
 import software.constructs.Construct;
 
 import java.util.List;
+import java.util.Map;
 
 public class UwrfStack extends Stack {
     private final String studentName;
@@ -30,6 +31,9 @@ public class UwrfStack extends Stack {
                 .memorySize(512)
                 .timeout(Duration.minutes(5))
                 .description("Processes video uploads and generates quizzes")
+                // Set MOCK_BEDROCK=false when you are ready to use real Bedrock (costs money).
+                // Keep it true during development to use canned quiz responses at zero cost.
+                .environment(Map.of("MOCK_BEDROCK", "true"))
                 .build();
 
         // TODO: Create an S3 bucket for video uploads
