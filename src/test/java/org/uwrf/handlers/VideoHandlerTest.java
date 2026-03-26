@@ -5,6 +5,7 @@ import com.amazonaws.services.lambda.runtime.events.S3Event;
 import com.amazonaws.services.lambda.runtime.events.models.s3.S3EventNotification;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.uwrf.services.MockQuizGenerator;
 
 import java.time.Instant;
 import java.util.List;
@@ -23,7 +24,8 @@ class VideoHandlerTest {
 
     @BeforeEach
     void setUp() {
-        handler = new VideoHandler();
+        // Inject MockQuizGenerator so tests run without AWS credentials or Bedrock costs
+        handler = new VideoHandler(new MockQuizGenerator());
     }
 
     @Test
